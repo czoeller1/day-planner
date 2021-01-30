@@ -119,8 +119,8 @@
       }
 
       $(".saveBtn").on("click", function () {
-        var id = $(this).parent().parent().data("hour");
-        var ta = $(this).parent().parent().find("textarea");
+        var id = $(this).parent().data("hour");
+        var ta = $(this).parent().find("textarea");
         console.log(ta);
 
         localStorage.setItem(id + "-text", ta.val());
