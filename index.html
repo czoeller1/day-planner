@@ -33,17 +33,27 @@
       <div class="row time-block" data-hour="9">
         <div class="col-1 hour">9 AM</div>
         <div class="col-10">
-          <textarea name="schedule" class="description" rows="2"></textarea>
+          <textarea
+            name="schedule"
+            class="description"
+            cols="100"
+            rows="2"
+          ></textarea>
         </div>
-        <div class="col-1">
-          <button class="btn saveBtn float-start">Save</button>
-        </div>
+        <button class="col-1 saveBtn">
+          <!-- <button class="btn saveBtn float-start">Save</button> -->
+        </button>
       </div>
 
       <div class="row time-block" data-hour="10">
         <div class="col-1 hour">10 AM</div>
         <div class="col-10">
-          <textarea name="schedule" class="description" rows="2"></textarea>
+          <textarea
+            name="schedule"
+            class="description"
+            cols="100"
+            rows="2"
+          ></textarea>
         </div>
         <div class="col-1">
           <button class="btn saveBtn">Save</button>
@@ -169,6 +179,23 @@
         var ts = $(".time-block[data-hour|=" + i + "]").children(".col-10");
         ts.addClass("future");
       }
+
+      for (i = 9; i < 18; i++) {
+        var text = localStorage.getItem(i + "-text");
+        if (!text) {
+          continue;
+        }
+        var ts = $(".time-block[data-hour|=" + i + "]").find("textarea");
+        ts.val(text);
+      }
+
+      $(".saveBtn").on("click", function () {
+        var id = $(this).parent().parent().data("hour");
+        var ta = $(this).parent().parent().find("textarea");
+        console.log(ta);
+
+        localStorage.setItem(id + "-text", ta.val());
+      });
     </script>
   </body>
 </html>
