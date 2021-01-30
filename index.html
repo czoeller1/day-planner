@@ -92,25 +92,32 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script>
       var date = moment();
+      //displays the current date
       $("#currentDay").text(date.format("dddd, MMMM Do"));
 
       var currTime = date.hour();
+      //gets the row for the current hour and sets the theme
       var curr = $(".time-block[data-hour|=" + currTime + "]").children(
         ".col-10"
       );
-
       curr.addClass("present");
+
+      //sets the theme for all hours before the current hour
       for (i = 9; i < currTime; i++) {
         var ts = $(".time-block[data-hour|=" + i + "]").children(".col-10");
         ts.addClass("past");
       }
+
+      //sets the theme for all hours after the current hour
       for (i = 17; i > currTime; i--) {
         var ts = $(".time-block[data-hour|=" + i + "]").children(".col-10");
         ts.addClass("future");
       }
 
+      //checks local memory for saved text for each hour
       for (i = 9; i < 18; i++) {
         var text = localStorage.getItem(i + "-text");
+        //checks if any text was saved
         if (!text) {
           continue;
         }
@@ -118,11 +125,13 @@
         ts.val(text);
       }
 
+      //button event listener to save entries
       $(".saveBtn").on("click", function () {
+        //gets the hour that the button is associated with
         var id = $(this).parent().data("hour");
+        //gets the textarea for that hour
         var ta = $(this).parent().find("textarea");
-        console.log(ta);
-
+        // saves the entry to local storage
         localStorage.setItem(id + "-text", ta.val());
       });
     </script>
